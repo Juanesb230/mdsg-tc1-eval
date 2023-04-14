@@ -3,7 +3,7 @@ import "./app.scss";
 import { SearchBar } from "./components/molecules/searchBar/search-bar";
 import React, { useEffect, useCallback } from "react";
 import store from "./store/store";
-import { Card } from "./components/organisms/Card/card";
+import { Card } from "./components/organisms/card/card";
 
 const App: React.FC = observer(() => {
   useEffect(() => {
