@@ -1,22 +1,27 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import UseScroll from "./use-scroll/use-scroll";
-import React from "react";
-
+import Card from "../card/card";
+import "./scroll.scss";
+import { PokemonWithImage } from "../../../util/interfaces/Pokemon";
 export interface ScrollProps {
   filter: string;
 }
 
 const Scroll: FC<ScrollProps> = ({ filter }) => {
   const { data } = UseScroll();
+  const [filteredData, setFilteredData] = useState<PokemonWithImage[]>([]);
+
+  useEffect(() => {
+    if (filter === "") setFilteredData(data);
+    setFilteredData(data.filter((pokemon) => pokemon.name.includes(filter)));
+  }, [filter, data]);
+
   return (
-    <section>
-      {" "}
-      {data.map((pokemon) => (
-        <article>
-          {pokemon.name}
-          <img src={pokemon.img} alt="" />
-        </article>
+    <section className="scroll">
+      {filteredData.map((pokemon) => (
+        <Card pokemon={pokemon} key={pokemon.name} />
       ))}
+      {!filteredData.length && <span>No existe un pokemon con ese nombre</span>}
     </section>
   );
 };

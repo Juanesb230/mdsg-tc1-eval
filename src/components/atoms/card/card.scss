@@ -1,0 +1,17 @@
+.card {
+  height: 18.75rem;
+  margin: 0.25rem;
+  border-radius: 0.25rem;
+  border: 1px solid black;
+  width: 30%;
+  text-align: center;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  &__img {
+    max-height: 15.625rem;
+  }
+  &__text {
+    font-weight: bold;
+  }
+}

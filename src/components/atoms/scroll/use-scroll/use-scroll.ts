@@ -7,12 +7,12 @@ const UseScroll = () => {
   const [data, setData] = useState<PokemonWithImage[]>([]);
 
   useEffect(() => {
-    refetch();
+    refetch(1);
   }, []);
-  const refetch = useCallback(async () => {
+  const refetch = useCallback(async (limit: number) => {
     try {
       const { data } = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon?limit=${20 * fetches}&offset=0`
+        `https://pokeapi.co/api/v2/pokemon?limit=${50 * limit}&offset=0`
       );
       const pokemons = data.results as Pokemon[];
       const pokemonsWithImg: PokemonWithImage[] = pokemons.map((pokemon) => ({
@@ -27,14 +27,16 @@ const UseScroll = () => {
     } catch (e) {
       console.error(e);
     }
-  }, [fetches]);
+  }, []);
 
   const handleOnScroll = useCallback(() => {
-    const screensScrolled = Math.ceil(window.scrollY / window.innerHeight);
+    const bottom =
+      Math.ceil(window.innerHeight + window.scrollY) + 80 >=
+      document.documentElement.scrollHeight;
 
-    if (fetches < screensScrolled) {
-      setFetches(screensScrolled);
-      refetch();
+    if (bottom) {
+      setFetches((fetches) => fetches + 1);
+      refetch(fetches + 1);
     }
   }, [fetches, refetch]);
 

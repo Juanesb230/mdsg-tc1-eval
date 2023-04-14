@@ -1,0 +1,11 @@
+main {
+  background-color: aquamarine;
+  min-height: 100vh;
+}
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 0;
+}
