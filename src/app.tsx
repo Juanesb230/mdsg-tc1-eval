@@ -1,9 +1,9 @@
 import { observer } from "mobx-react";
 import "./app.scss";
-import { SearchBar } from "./components/molecules/searchBar/searchBar";
+import { SearchBar } from "./components/molecules/searchBar/search-bar";
 import React, { useEffect, useCallback } from "react";
 import store from "./store/store";
-import { Card } from "./components/organisms/Card/Card";
+import { Card } from "./components/organisms/Card/card";
 
 const App: React.FC = observer(() => {
   useEffect(() => {

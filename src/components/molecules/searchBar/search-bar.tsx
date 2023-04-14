@@ -1,7 +1,6 @@
 import React from "react";
-import { Button } from "../../atoms/button/Button";
 import { Input } from "../../atoms/input/Input";
-import "./searchBar.scss";
+import "./search-bar.scss";
 
 interface SearchProps {
   handleChange: (value: string) => void;

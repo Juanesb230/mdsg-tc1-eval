@@ -1,6 +1,5 @@
 import axios from "axios";
 import { BASE_URL } from "../../utils/constants/services";
-import { Pokemon } from "../../utils/interfaces/pokemon-interfaces";
 
 export const axiosInstance = axios.create({
   baseURL: `${BASE_URL}`,
