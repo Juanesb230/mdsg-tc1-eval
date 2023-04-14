@@ -5,11 +5,15 @@ import { Pokemon } from "../../utils/interfaces/pokemon-interfaces";
 
 const axiosMock = new MockAdapter(axios);
 
-describe("Gif Service", () => {
-  it("should get gif array", async () => {
-    axiosMock.onGet("/pokemon?limit=50&offset=1").reply(200, [
+describe("Pokemon Service", () => {
+  it("should get pokemon array", async () => {
+    axiosMock.onGet("/pokemon?limit=50&offset=0").reply(200, [
       {
         name: "bulbasaur",
+        url: "example.com",
+      },
+      {
+        name: "pikachu",
         url: "example.com",
       },
     ] as Pokemon[]);
