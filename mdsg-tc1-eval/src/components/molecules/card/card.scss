@@ -1,0 +1,26 @@
+.card {
+  display:grid;
+  font-weight: bold;
+  grid-template: "card";
+  background-color: aliceblue;
+  border-radius: 10px;
+  width: 300px;
+  height: 300px;
+
+  &__name{
+    grid-row:1/2;
+    grid-column: 1/1;
+    display:flex;
+    justify-self: center;
+    font-size: 30px;
+  } 
+  &__pokemon{
+    width: 200px;
+    height: 200px;
+    grid-row:2/2;
+    grid-column: 1/1;
+    justify-self: center;
+      
+  }
+    
+}

@@ -1,0 +1,31 @@
+.pokemon-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
+  
+    &__cards {
+      flex-grow: 4;
+      display: flex;
+      justify-content: center;
+    }
+  
+    &__not-found {
+      display: flex;
+      background-color: aliceblue;
+      border-radius: 10px;
+      width: 100%;
+      min-height: 80vh;
+      justify-content: center;
+  
+      &__text {
+        color: black;
+        font-weight: bolder;
+        font-size: large;
+        align-self: center;
+      }
+    }
+  }

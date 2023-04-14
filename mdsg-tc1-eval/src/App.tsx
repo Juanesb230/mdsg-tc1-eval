@@ -1,25 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { AppContextProvider } from "./context/app-context";
+import PokemonList from "./components/organisms/pokemon-list/pokemon-list";
+import SearchBar from "./components/molecules/search-bar/search-bar";
+import './App.scss';
 
 function App() {
+  const [searchedPokemon, setSearchedPokemon] = useState('')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContextProvider>
+      <div className="app">
+        <SearchBar text='Pokemons Totales: ' setSearchedPokemon={setSearchedPokemon}/>
+        <PokemonList searchedPokemon={searchedPokemon}/>
+      </div>
+    </AppContextProvider>
   );
 }
 

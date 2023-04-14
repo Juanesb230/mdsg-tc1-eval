@@ -1,0 +1,46 @@
+.app {
+  margin: 0px;
+  background-color: rgb(33, 137, 174);
+  width: 100%;
+  min-height: 100vh;
+
+  &__color-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  &__color-title {
+    min-width: 70px
+  }
+
+  &__color {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0px 20px;
+
+    &--main {
+      background-color: var(--main);
+    }
+    &--background {
+      background-color: var(--background);
+    }
+  }
+
+  &__icon-container {
+    display: flex;
+  }
+
+  &__icon-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+  &__icon {
+    width: 70px;
+    height: 70px;
+  }
+}
