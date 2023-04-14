@@ -1,1 +1,0 @@
-Prueba del CT1
