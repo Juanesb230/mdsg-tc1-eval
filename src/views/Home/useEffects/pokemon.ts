@@ -18,7 +18,6 @@ export const useEffectPokemons = (): ApiResponse<ReadPokemonDetail> => {
   const [error, setError] = useCustomState<Error | null>(null);
 
   const pokemonFiltered = (termino: any) => {
-    console.log(termino.target?.value);
     termino = termino.target?.value.trim().toLowerCase();
     if (termino !== '') {
       const pokemonFilter = pokemons.pokemons.filter((pokemon: ReadPokemon) => {
@@ -30,31 +29,38 @@ export const useEffectPokemons = (): ApiResponse<ReadPokemonDetail> => {
         numberPokemons: pokemons.numberPokemons,
         pokemons: pokemonFilter,
       };
-      //   pokemons.pokemons = pokemonFilter;
+
       setPokemosFilter(pokemonsDetails);
     } else {
       setPokemosFilter(pokemons);
     }
   };
+
+  const apiResponse = async (api: string) => {
+    const response = await fetch(api);
+    const data = await response.json();
+    const { results } = data;
+    const pokemons: ReadPokemon[] = results.map(async (pokemon: any) => {
+      const response = await fetch(pokemon.url);
+      const poke = await response.json();
+      const pokemonApi: ReadPokemon = {
+        image: poke.sprites.other.dream_world.front_default,
+        name: pokemon.name,
+        url: pokemon.url,
+        id: poke.id,
+      };
+      return pokemonApi;
+    });
+
+    return { pokemonsApi: await Promise.all(pokemons), data };
+  };
   const loadMore = async () => {
     if (nextPageUrl) {
-      const response = await fetch(nextPageUrl);
-      const data = await response.json();
-      const { results } = data;
-      const pokemonsArr: ReadPokemon[] = results.map(async (pokemon: any) => {
-        const response = await fetch(pokemon.url);
-        const poke = await response.json();
-        const pokemonApi: ReadPokemon = {
-          image: poke.sprites.other.dream_world.front_default,
-          name: pokemon.name,
-          url: pokemon.url,
-          id: poke.id,
-        };
-        return pokemonApi;
-      });
+      const api = await apiResponse(nextPageUrl);
+      const { data, pokemonsApi } = api;
       const pokemonsDetails: ReadPokemonDetail = {
         numberPokemons: data.count,
-        pokemons: [...pokemons.pokemons, ...(await Promise.all(pokemonsArr))],
+        pokemons: [...pokemons.pokemons, ...pokemonsApi],
       };
       setPokemos(pokemonsDetails);
       setPokemosFilter(pokemonsDetails);
@@ -63,7 +69,6 @@ export const useEffectPokemons = (): ApiResponse<ReadPokemonDetail> => {
   };
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
-    console.log(event.currentTarget);
     const element = event.currentTarget;
     if (element.scrollHeight - element.scrollTop === element.clientHeight) {
       loadMore();
@@ -72,27 +77,16 @@ export const useEffectPokemons = (): ApiResponse<ReadPokemonDetail> => {
   useEffect(() => {
     async function fetchPokemons() {
       setIsLoading(true);
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?limit=50&offset=0`
-      );
 
       try {
-        const data = await response.json();
-        const { results } = data;
-        const pokemons: ReadPokemon[] = results.map(async (pokemon: any) => {
-          const response = await fetch(pokemon.url);
-          const poke = await response.json();
-          const pokemonApi: ReadPokemon = {
-            image: poke.sprites.other.dream_world.front_default,
-            name: pokemon.name,
-            url: pokemon.url,
-            id: poke.id,
-          };
-          return pokemonApi;
-        });
+        const api = await apiResponse(
+          `https://pokeapi.co/api/v2/pokemon?limit=50&offset=0`
+        );
+        const { data, pokemonsApi } = api;
+
         const pokemonsDetails: ReadPokemonDetail = {
           numberPokemons: data.count,
-          pokemons: await Promise.all(pokemons),
+          pokemons: pokemonsApi,
         };
         setPokemos(pokemonsDetails);
         setPokemosFilter(pokemonsDetails);
