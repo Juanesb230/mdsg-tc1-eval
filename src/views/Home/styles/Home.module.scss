@@ -29,6 +29,14 @@
     gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   }
+  &__notFountSearch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 4rem;
+    flex: 1;
+  }
 }
 
 .home::-webkit-scrollbar {

@@ -44,7 +44,7 @@ const Home: React.FC<HomeProps> = () => {
         ></InputSeacrh>
       </header>
       {pokemons.pokemons.length === 0 ? (
-        <div className={styles.home__containerState}>
+        <div className={styles.home__notFountSearch}>
           No existe ningun pokemon con este nombre!
         </div>
       ) : (
