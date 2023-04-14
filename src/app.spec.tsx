@@ -63,6 +63,33 @@ describe("App component", () => {
     });
   });
 
+  it("should show message when filter pokemons by name and no match found", async () => {
+    render(<App />);
+    axiosMock.onGet("/pokemon?limit=50&offset=0").reply(200, {
+      results: [
+        {
+          url: "gifno1",
+          name: "bulbasaur",
+        },
+        {
+          url: "gifno2",
+          name: "ivysaur",
+        },
+      ],
+    });
+
+    await waitFor(() => {
+      const pokemonCard = screen.getByText("bulbasaur");
+      expect(pokemonCard).toBeVisible();
+    });
+    const input = screen.getByPlaceholderText("buscar pokemon");
+    fireEvent.change(input, { target: { value: "zooloo" } });
+    await waitFor(() => {
+      const pokemonCard = screen.getByText("No existe ningun pokemon con ese nombre");
+      expect(pokemonCard).toBeVisible();
+    });
+  });
+
   it("should add and remove event listener on window object", () => {
     const addEventSpy = jest.spyOn(window, "addEventListener");
     const removeEventSpy = jest.spyOn(window, "removeEventListener");
