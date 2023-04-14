@@ -12,7 +12,6 @@ export const SearchBar: React.FC<SearchProps> = ({ handleChange, counter }) => {
     <div className="searchBar-container">
       <Input
         placeholder="buscar pokemon"
-        width="100%"
         inputId="buscar"
         onChange={handleChange}
         numberPokemon={counter}

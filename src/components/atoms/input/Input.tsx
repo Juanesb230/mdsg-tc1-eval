@@ -4,7 +4,6 @@ import "./Input.scss";
 export interface InputProps {
   initialValue?: string;
   placeholder?: string;
-  width?: string;
   type?: string;
   onChange?(value: string): void;
   name?: string;

@@ -5,14 +5,13 @@ import classNames from "classnames";
 interface CardProps {
   name: string;
   url: string;
-  onDelete?(): void;
 }
 
 export const Card: React.FC<CardProps> = ({ name, url }) => {
   return (
-    <div className={classNames({ gifCard: true })}>
+    <div className={classNames({ pokecard: true })}>
       <p>{name}</p>
-      <img src={url} alt={url} className={classNames({ gifCard__image: true })} />
+      <img src={url} alt={url} className={classNames({ pokecard__image: true })} />
     </div>
   );
 };
