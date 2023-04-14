@@ -1,0 +1,33 @@
+.gifCard {
+  position: relative;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(0, 0, 0);
+  background-color: aliceblue;
+
+  &--modal {
+    opacity: 0.5;
+  }
+
+  &__image {
+    padding-top: 30px;
+    width: 70%;
+    height: 200px;
+    object-fit: contain;
+    margin: 0 30px 0 30px;
+  }
+
+  &__eliminar {
+    font-weight: bold;
+  }
+
+  &__cancelar {
+    font-weight: bold;
+    background-color: white;
+    color: #b234b1;
+    border: 2px solid #b234b1;
+  }
+}
