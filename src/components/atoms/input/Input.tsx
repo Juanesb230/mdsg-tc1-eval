@@ -39,7 +39,7 @@ export const Input: FC<InputProps> = ({
         type={type}
         placeholder={placeholder}
         value={value}
-        className="input"
+        className="input--child"
         onChange={handleOnChange}
         name={name}
       ></input>
