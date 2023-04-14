@@ -78,49 +78,6 @@ describe("App component", () => {
     expect(removeEventSpy).toHaveBeenCalledWith("scroll", expect.any(Function));
   });
 
-  // test("should call getMorePokemons when reaching the bottom of the page", async () => {
-  //   const mockGetMorePokemons = jest.fn();
-  //   const wrapper = shallow(<App />);
-  //   axiosMock.onGet("/pokemon?limit=50&offset=50").reply(200, {
-  //     results: [
-  //       {
-  //         url: "gifno1",
-  //         name: "pikachu",
-  //       },
-  //       {
-  //         url: "gifno2",
-  //         name: "raichu",
-  //       },
-  //     ],
-  //   });
-  //   wrapper.instance().store.getMorePokemons = mockGetMorePokemons;
-  //   // const spyGetMorePokemons = jest.spyOn(store.prototype, "store.getMorePokemons");
-  //   const originalWindow = { ...window };
-  //   const newWindow = Object.assign({}, window, {
-  //     innerHeight: 500,
-  //     scrollY: 1500,
-  //     document: {
-  //       body: {
-  //         offsetHeight: 2000,
-  //       },
-  //     },
-  //   });
-  //   Object.defineProperty(global, "window", {
-  //     value: newWindow,
-  //   });
-  //   expect(mockGetMorePokemons).toHaveBeenCalled();
-  //   // expect(spyGetMorePokemons).toHaveBeenCalledTimes(1);
-
-  //   Object.defineProperty(global, "window", {
-  //     value: originalWindow,
-  //   });
-
-  //   await waitFor(() => {
-  //     const pokemonCard = screen.getByText("pikachu");
-  //     expect(pokemonCard).toBeVisible();
-  //   });
-  // });
-
   it("loads more pokemons on scroll", async () => {
     axiosMock.onGet("/pokemon?limit=50&offset=50").reply(200, {
       results: [
@@ -150,12 +107,11 @@ describe("App component", () => {
       getMorePokemons: jest.fn(),
       page: 0,
     };
-    const handleOnScroll = jest.fn();
 
     jest.spyOn(global, "window", "get").mockImplementation(() =>
       Object.assign({}, window, {
         innerHeight: 500,
-        scrollY: 800,
+        scrollY: 500,
         document: {
           body: {
             offsetHeight: 1300,
@@ -163,10 +119,7 @@ describe("App component", () => {
         },
       })
     );
-    let result;
-    act(() => {
-      result = handleOnScroll.bind(null, store)();
-    });
+
     expect(store.getMorePokemons).not.toHaveBeenCalled();
     expect(store.page).toEqual(0);
   });
