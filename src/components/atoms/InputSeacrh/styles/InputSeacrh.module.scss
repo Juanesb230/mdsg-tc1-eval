@@ -1,0 +1,66 @@
+$primary: #4f6785;
+$secondary: #505f87;
+$white: #fff;
+$gray: #9b9b9b;
+$blue: #1c103a;
+.inputseacrh {
+  margin: 0;
+  position: relative;
+  padding: 15px 0 0;
+  // margin-top: 10px;
+  width: 100%;
+  &__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid $white;
+    outline: 0;
+    font-size: 1.3rem;
+    color: $white;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:placeholder-shown ~ .inputseacrh__label {
+      font-size: 1.3rem;
+      cursor: text;
+      top: 20px;
+    }
+  }
+  &__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $white;
+  }
+}
+
+.inputseacrh__field:focus {
+  ~ .inputseacrh__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $primary;
+    font-weight: 700;
+  }
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, $primary, $secondary);
+  border-image-slice: 1;
+}
+/* reset input */
+.inputseacrh__field {
+  &:required,
+  &:invalid {
+    box-shadow: none;
+  }
+}

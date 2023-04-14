@@ -1,0 +1,65 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+  gap: 3rem;
+  /* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+
+  &__containerState {
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+  }
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    h1 {
+      margin: 0;
+    }
+  }
+  &__grid {
+    // padding: 0 1rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  }
+}
+
+.home::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.home::-webkit-scrollbar:vertical {
+  width: 8px;
+}
+
+.home::-webkit-scrollbar-button:increment,
+.home::-webkit-scrollbar-button {
+  display: none;
+}
+
+.home::-webkit-scrollbar:horizontal {
+  height: 5px;
+}
+
+.home::-webkit-scrollbar-thumb {
+  background-color: #797979;
+  border-radius: 0.5rem;
+  // border: 2px solid #232323;
+}
+
+.home::-webkit-scrollbar-thumb:hover {
+  background-color: #606060;
+  border-radius: 0.5rem;
+  // border: 2px solid #232323;
+}
+
+.home::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
