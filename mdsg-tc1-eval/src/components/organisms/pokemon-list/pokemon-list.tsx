@@ -13,11 +13,12 @@ const PokemonList : FC<PokemonListProps> = ({searchedPokemon}) => {
   const { pokemonState, pokemonDispatch } = pokemonReducer
   const { pokemons} = pokemonState
   const [offset, setOffset] = useState(0)
+  const [limit, setLimit] = useState(50)
 
 
   const getPokemons = useCallback(async () => {
     try {
-      const data = await PokemonService.getPokemons('50',offset.toString())
+      const data = await PokemonService.getPokemons(limit.toString(),offset.toString())
       pokemonDispatch({ type: 'getPokemons', payload: data })
     }catch(e) {
     }
@@ -28,6 +29,21 @@ const PokemonList : FC<PokemonListProps> = ({searchedPokemon}) => {
       getPokemons()
     }
   }, [getPokemons])
+
+  useEffect(() => {
+    const  handleOnScroll = () => {
+      if(window.innerHeight + window.scrollY >= document.body.offsetHeight){
+        setOffset(offset + 50)
+        setLimit(limit + 50)
+      }
+
+    }
+    window.addEventListener('scroll', handleOnScroll)
+    return () => {
+      window.removeEventListener('scroll', handleOnScroll)
+    }
+  }, [offset, limit])
+
 
   return (
     <>
