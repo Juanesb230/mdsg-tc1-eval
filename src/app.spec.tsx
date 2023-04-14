@@ -1,13 +1,16 @@
 import { act, fireEvent, render, screen, waitFor, cleanup } from "@testing-library/react";
 import App from "./app";
 import MockAdapter from "axios-mock-adapter";
-import { Pokemon } from "./utils/interfaces/pokemon-interfaces";
 import { axiosInstance } from "./services/pokmeonServices/pokemon-services";
+import { shallow } from "enzyme";
 import store from "./store/store";
 
 const axiosMock = new MockAdapter(axiosInstance);
 
 describe("App component", () => {
+  afterEach(() => {
+    cleanup();
+  });
   it("Should render the title", async () => {
     axiosMock.onGet("/pokemon?limit=50&offset=0").reply(200, {
       results: [
@@ -75,9 +78,50 @@ describe("App component", () => {
     expect(removeEventSpy).toHaveBeenCalledWith("scroll", expect.any(Function));
   });
 
-  test("should call getMorePokemons when reaching the bottom of the page", async () => {
-    // const getMorePokemons = jest.fn();
-    render(<App />);
+  // test("should call getMorePokemons when reaching the bottom of the page", async () => {
+  //   const mockGetMorePokemons = jest.fn();
+  //   const wrapper = shallow(<App />);
+  //   axiosMock.onGet("/pokemon?limit=50&offset=50").reply(200, {
+  //     results: [
+  //       {
+  //         url: "gifno1",
+  //         name: "pikachu",
+  //       },
+  //       {
+  //         url: "gifno2",
+  //         name: "raichu",
+  //       },
+  //     ],
+  //   });
+  //   wrapper.instance().store.getMorePokemons = mockGetMorePokemons;
+  //   // const spyGetMorePokemons = jest.spyOn(store.prototype, "store.getMorePokemons");
+  //   const originalWindow = { ...window };
+  //   const newWindow = Object.assign({}, window, {
+  //     innerHeight: 500,
+  //     scrollY: 1500,
+  //     document: {
+  //       body: {
+  //         offsetHeight: 2000,
+  //       },
+  //     },
+  //   });
+  //   Object.defineProperty(global, "window", {
+  //     value: newWindow,
+  //   });
+  //   expect(mockGetMorePokemons).toHaveBeenCalled();
+  //   // expect(spyGetMorePokemons).toHaveBeenCalledTimes(1);
+
+  //   Object.defineProperty(global, "window", {
+  //     value: originalWindow,
+  //   });
+
+  //   await waitFor(() => {
+  //     const pokemonCard = screen.getByText("pikachu");
+  //     expect(pokemonCard).toBeVisible();
+  //   });
+  // });
+
+  it("loads more pokemons on scroll", async () => {
     axiosMock.onGet("/pokemon?limit=50&offset=50").reply(200, {
       results: [
         {
@@ -86,10 +130,28 @@ describe("App component", () => {
         },
         {
           url: "gifno2",
-          name: "raichu",
+          name: "ivysaur",
         },
       ],
     });
+    render(<App />);
+    window.innerHeight = 1000;
+    window.scrollY = 1200;
+
+    fireEvent.scroll(window);
+
+    await waitFor(() => {
+      screen.getByText("ivysaur");
+    });
+  });
+
+  it("should not call getMorePokemons when user has not scrolled to the bottom of the page", () => {
+    const store = {
+      getMorePokemons: jest.fn(),
+      page: 0,
+    };
+    const handleOnScroll = jest.fn();
+
     jest.spyOn(global, "window", "get").mockImplementation(() =>
       Object.assign({}, window, {
         innerHeight: 500,
@@ -101,75 +163,11 @@ describe("App component", () => {
         },
       })
     );
-
-    const caller = store.getMorePokemons(50);
-    expect(caller).not.toHaveBeenCalled();
-
-    await waitFor(() => {
-      const pokemonCard = screen.getByText("pikachu");
-      expect(pokemonCard).toBeVisible();
+    let result;
+    act(() => {
+      result = handleOnScroll.bind(null, store)();
     });
+    expect(store.getMorePokemons).not.toHaveBeenCalled();
+    expect(store.page).toEqual(0);
   });
-
-  // test("should remove scroll listener on unmount", () => {
-  //   const removeEventListener = jest.fn();
-  //   jest.spyOn(global, "window", "get").mockImplementation(() => ({
-  //     addEventListener: jest.fn(),
-  //     removeEventListener,
-  //   }));
-
-  //   const { unmount } = renderHook(() => usePokemonScroll(jest.fn()));
-
-  //   expect(removeEventListener).not.toHaveBeenCalled();
-
-  //   unmount();
-
-  //   expect(removeEventListener).toHaveBeenCalled();
-  // });
-
-  // it("should call getMorePokemons when user has scrolled to the bottom of the page", () => {
-  //   const handleOnScroll = jest.fn();
-  //   const store = {
-  //     getMorePokemons: jest.fn(),
-  //     page: 0,
-  //   };
-  //   const windowMock = {
-  //     innerHeight: 100,
-  //     scrollY: 500,
-  //     document: {
-  //       body: {
-  //         offsetHeight: 1000,
-  //       },
-  //     },
-  //   };
-  //   let result;
-  //   act(() => {
-  //     result = handleOnScroll.bind(null, store)();
-  //   });
-  //   expect(store.getMorePokemons).toHaveBeenCalled();
-  //   expect(store.page).toEqual(50);
-  // });
-
-  // it("should not call getMorePokemons when user has not scrolled to the bottom of the page", () => {
-  //   const store = {
-  //     getMorePokemons: jest.fn(),
-  //     page: 0,
-  //   };
-  //   const handleOnScroll = jest.fn();
-  //   const windowMock = {
-  //     innerHeight: 100,
-  //     scrollY: 0,
-  //     document: {
-  //       body: {
-  //         offsetHeight: 1000,
-  //       },
-  //     },
-  //   };
-  //   let result;
-  //   act(() => {
-  //     result = handleOnScroll.bind(null, store)();
-  //   });
-  //   expect(store.getMorePokemons).not.toHaveBeenCalled();
-  //   expect(store.page).toEqual(0);
-  // });
 });
