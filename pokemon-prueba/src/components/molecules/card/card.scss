@@ -1,0 +1,52 @@
+.card {
+    width: 280px;
+    max-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid darkgrey;
+    border-radius: 4px;
+
+    @media screen and(max-width: 655px) and (min-width: 339px) {
+        
+        width: 100%;
+        flex-grow: 2;
+        display: flex;
+        justify-content: center;
+        
+    }
+
+    @media screen and(max-width: 338px) {
+        width: 100%;
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__name {
+        font-family: 'Prelo';
+        font-style: 'SemiBold';
+        font-size: 16px;
+        line-height: 24px;
+        text-align: left;
+        color: #2C2C30;
+        margin: 0;
+    }
+
+    &__container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__gif {
+            width: 100px;
+            height: 100px;
+        }
+        
+    }
+}
