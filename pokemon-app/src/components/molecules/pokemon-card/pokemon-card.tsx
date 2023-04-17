@@ -5,7 +5,6 @@ import "./pokemon-card.scss";
 
 interface PokemonCardProps {
   pokemon: Pokemon
-
 }
 
 const GifCard: FC<PokemonCardProps> = ({ pokemon }) => {
