@@ -1,5 +1,4 @@
-import { FC } from "react";
-
+import { FC, ChangeEvent } from "react";
 import "./input.scss";
 
 interface InputProps {
@@ -10,13 +9,17 @@ interface InputProps {
 }
 
 const Input: FC<InputProps> = ({ placeholder, value, onChange, error }) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    onChange(event.target.value);
+  };
+
   return (
     <div className="input">
       <input
         type="text"
         placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={handleChange}
         className={`input__input ${error ? "input__input--error" : ""}`}
       />
       {error && <p className="input__error">{error}</p>}

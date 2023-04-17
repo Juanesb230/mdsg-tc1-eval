@@ -1,0 +1,49 @@
+.card-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 20px;
+
+    &__not-found {
+        background-color: #fff;
+        width: 100%;
+        border: 1px solid darkgrey;
+        border-radius: 4px;
+        height: 600px;
+        max-height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+        &__message {
+            font-weight: 700;
+        }
+    }
+
+    &__cards {
+        flex-grow: 4;
+        display: flex;
+        justify-content: center;
+    }
+
+    @media screen and(max-width: 640px) and (min-width: 339px) {
+        &__cards {
+            width: 100%;
+            flex-grow: 2;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    @media screen and(max-width: 338px) {
+        &__cards {
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+}
