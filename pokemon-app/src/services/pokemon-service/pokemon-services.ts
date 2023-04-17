@@ -7,7 +7,7 @@ export default class PokemonService {
     //get all pokemons img
     static async getPokemonsImg() {
         const response = await axios.get<Pokemon[]>(
-            `${this.POKEMON_IMG}/?author_id=${this.POKEMON_API_URL}.svg`
+            `${this.POKEMON_IMG}/?author_id=${this.URL}.svg`
         );
         return response.data;
     }

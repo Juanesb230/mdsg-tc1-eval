@@ -2,10 +2,12 @@
     &__input {
       padding: 1rem;
       border-radius: 4px;
-      border: 2px solid #ccc;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      padding: .875rem .75rem;
   
       &--error {
-        border: 2px solid red;
+        border: 1px solid red;
       }
     }
   
