@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import "./app.scss";
-import { SearchBar } from "./components/molecules/searchBar/search-bar";
+import { SearchBar } from "./components/molecules/search-bar/search-bar";
 import React, { useEffect, useCallback } from "react";
 import store from "./store/store";
 import { Card } from "./components/organisms/card/card";

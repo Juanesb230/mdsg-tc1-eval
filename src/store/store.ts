@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { Pokemon } from "../utils/interfaces/pokemon-interfaces";
-import { PokemonServices } from "../services/pokmeonServices/pokemon-services";
+import { PokemonServices } from "../services/pokemon-services/pokemon-services";
 
 class Store {
   allPokemons: Pokemon[] = [];

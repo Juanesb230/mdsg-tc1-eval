@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor, cleanup } from "@testing-library/react";
 import App from "./app";
 import MockAdapter from "axios-mock-adapter";
-import { axiosInstance } from "./services/pokmeonServices/pokemon-services";
+import { axiosInstance } from "./services/pokemon-services/pokemon-services";
 
 const axiosMock = new MockAdapter(axiosInstance);
 
